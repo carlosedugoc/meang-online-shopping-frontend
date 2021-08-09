@@ -1,0 +1,10 @@
+  <!-- Sidebar-->
+  <div class="border-end bg-white" id="sidebar-wrapper">
+    <div class="sidebar-heading border-bottom">
+      <a [routerLink]="[ '/home' ]" routerLinkActive="active">Gamezonia</a>
+    </div>
+    <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" [routerLink] = "['/admin']" ><i class="fas fa-columns"></i> Dashboard</a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" [routerLink] = "['/admin/users']" ><i class="fas fa-id-card"></i> Users</a>
+    </div>
+</div>
