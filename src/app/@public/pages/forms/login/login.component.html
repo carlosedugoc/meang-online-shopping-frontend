@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" >
+        <h1>Inicio de sesión</h1>
+        <p>Introduzca los credenciales para iniciar la sesión</p>
+        <p class="psw">
+          ¿No tienes cuenta? Entra
+          <a href="#">aquí</a> para crearla gratis
+        </p>
+        <hr />
+        <label for="email"><b>Correo electrónico</b></label>
+        <input
+          type="email"
+          placeholder="Introduzca el correo electrónico"
+          name="email"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{'is-valid':!email.errors, 'is-invalid':email.errors}"
+        />
+        <div class="alert alert-danger" *ngIf="isNotValid('email')">
+          <div *ngIf="email.errors?.required" >
+            El email es obligatorio
+          </div>
+          <div *ngIf="email.errors?.pattern">
+            No cumple con el formato de correo electrónico
+          </div>
+        </div>
+
+        <label for="psw"><b>Contraseña</b></label>
+        <input
+          type="password"
+          placeholder="Introduzca la contraseña"
+          name="psw"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{'is-valid':!password.errors, 'is-invalid':password.errors}"
+        />
+        <div class="alert alert-danger" *ngIf="isNotValid('password')">
+          <div *ngIf="password.errors?.required">
+            La contraseña es obligatoria
+          </div>
+          <div *ngIf="password.errors?.minlength || password.errors?.maxlength">
+            Debe tener entre 6 y 20 caracteres | actualmente llevas {{password.value.length}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg">
+            <button type="submit" [disabled]="!loginForm.valid"  class="signup-btn">Iniciar sesión</button>
+          </div>
+        </div>
+        <div class="more-options">
+          <p class="psw">
+            ¿Has olvidado la <a [routerLink]="['/forgot']">contraseña?</a>
+          </p>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg"></div>
+  </div>
+</div>

@@ -1,13 +1,32 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@shop/*":["src/app/@public/*"],
-      "@admin/*":["src/app/@admin/*"],
-      "@admin-core/*":["src/app/@admin/core/*"],
-      "@shop-core/*":["src/app/@public/core/*"]
+      "@shop/*": [
+        "src/app/@public/*"
+      ],
+      "@admin/*": [
+        "src/app/@admin/*"
+      ],
+      "@admin-core/*": [
+        "src/app/@admin/core/*"
+      ],
+      "@shop-core/*": [
+        "src/app/@public/core/*"
+      ],
+      "@graphql/*": [
+        "src/app/@graphql/*"
+      ],
+      "@core/*": [
+        "src/app/@core/*"
+      ],
+      "@shared/*": [
+        "src/app/@shared/*"
+      ],
+      "@main/*": [
+        "src/app/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -20,8 +39,10 @@
     "module": "es2020",
     "lib": [
       "es2018",
-      "dom"
-    ]
+      "dom",
+      "esnext.asynciterable"
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false

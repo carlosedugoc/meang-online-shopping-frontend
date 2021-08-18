@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <h1>Registro de usuario</h1>
+        <p>
+          Rellena los datos del formulario para efectuar el registro de tu
+          cuenta de usuario.
+        </p>
+        <hr />
+        <label for="name"><b>Nombre</b></label>
+        <input
+          type="text"
+          placeholder="Ingresa el nombre"
+          name="name"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{'is-valid':!name.errors, 'is-invalid':name.errors}"
+        />
+        <div class="alert alert-danger" *ngIf="isNotValid('name')">
+          <div *ngIf="name.errors?.required" >
+            El nombre es obligatorio
+          </div>
+        </div>
+
+        <label for="lastname"><b>Apellido</b></label>
+        <input
+          type="text"
+          placeholder="Ingresa el apellido"
+          name="lastname"
+          formControlName="lastname"
+          class="form-control"
+          [ngClass]="{'is-valid':!lastname.errors, 'is-invalid':lastname.errors}"
+        />
+        <div class="alert alert-danger" *ngIf="isNotValid('lastname')">
+          <div *ngIf="lastname.errors?.required" >
+            El apellido es obligatorio
+          </div>
+        </div>
+
+        <label for="birthday"><b>Fecha de Nacimiento</b></label>
+        <app-date-picker-legal-age (newDate)="dataAssigned($event)" ></app-date-picker-legal-age>
+
+        <label for="email"><b>Email</b></label>
+        <input
+          type="text"
+          placeholder="Ingresa el correo"
+          name="email"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{'is-valid':!email.errors, 'is-invalid':email.errors}"
+        />
+        <div class="alert alert-danger" *ngIf="isNotValid('email')">
+          <div *ngIf="email.errors?.required" >
+            El email es obligatorio
+          </div>
+          <div *ngIf="email.errors?.pattern">
+            No cumple con el formato de correo electrónico
+          </div>
+        </div>
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Ingresa la contraseña"
+          name="psw"
+          formControlName="password" class="form-control"
+          [ngClass]="{'is-valid':!password.errors, 'is-invalid':password.errors}"
+        />
+        <div class="alert alert-danger" *ngIf="isNotValid('password')">
+          <div *ngIf="password.errors?.required">
+            La contraseña es obligatoria
+          </div>
+          <div *ngIf="password.errors?.minlength || password.errors?.maxlength">
+            Debe tener entre 6 y 20 caracteres | actualmente llevas {{password.value.length}}
+          </div>
+        </div>
+
+
+        <p>
+          By creating an account you agree to our
+          <a href="#" style="color: dodgerblue;">Terms & Privacy</a>.
+        </p>
+        <p>
+          ¿Ya tiene una cuenta?
+          <a [routerLink]="['/login']" style="color: dodgerblue;"
+            >Iniciar sesión</a
+          >.
+        </p>
+        <div class="row">
+          <div class="col-lg">
+            <button type="submit" class="signup-btn" [disabled]="!registerForm.valid" >Registrarse</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg"></div>
+  </div>
+</div>
+
+
