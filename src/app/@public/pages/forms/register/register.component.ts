@@ -48,7 +48,6 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(){
-    console.log(this.registerForm.value)
     this.api.register(this.registerForm.value as IRegisterForm).subscribe((res:IResultRegister) =>{
       if(!res.status) return basicAlert(TYPE_ALERT.WARNING, res.message)
       this.store.dispatch(setUser(res.user))
