@@ -26,7 +26,6 @@ export class AdminGuard implements CanActivateChild {
     state: RouterStateSnapshot): boolean {
       if(this.logedIn){
         const dataDecoded: any = this.decodeToken(this.token)
-        console.log(dataDecoded)
         if(dataDecoded.exp < new Date().getTime() / 1000){
           console.log('SESIÓN CADUCADA')
           this.redirect()

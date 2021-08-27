@@ -13,15 +13,9 @@ export class HomeComponent implements OnInit {
   constructor(private usersService: UsersService, private auth:AuthService) { }
 
   ngOnInit(): void {
-    // this.auth.login('carlosedugoc6@gmail.com', '123456').subscribe(res =>{
-    //   console.log(res)
-    // })
     this.usersService.getUsers().subscribe(res=>{
       console.log(res)
     })
-    // this.auth.getMe().subscribe(res=>{
-    //   console.log(res)
-    // })
   }
 
 }

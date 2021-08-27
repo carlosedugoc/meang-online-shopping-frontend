@@ -25,7 +25,6 @@ export class TablePaginationComponent implements OnInit {
   constructor(private service: TablePaginationService) { }
 
   ngOnInit(): void {
-    debugger;
     if(!this.query) throw new Error('Query not defined')
     if(!this.resultData) throw new Error('ResultData not defined')
     this.infoPage = {
@@ -48,7 +47,6 @@ export class TablePaginationComponent implements OnInit {
         const data = result[this.resultData.definitionKey]
         this.infoPage.pages = data.info.pages;
         this.infoPage.total = data.info.total;
-        console.log('datos',data, this.infoPage)
         return data[this.resultData.listKey]
       })
     )

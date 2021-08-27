@@ -53,12 +53,10 @@ export class UsersComponent implements OnInit {
 
   private async addForm(html:string) {
     const addResult = await userFormBasicDialog('Añadir usuario', html)
-    console.log(addResult)
     this.addUser(addResult)
   }
   private async updateForm(html:string, user:any) {
     const addResult = await userFormBasicDialog('Modificar usuario', html)
-    console.log(addResult)
     this.updateUser(addResult, user.id)
   }
 

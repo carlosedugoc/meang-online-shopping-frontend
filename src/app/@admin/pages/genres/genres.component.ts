@@ -56,7 +56,6 @@ export class GenresComponent implements OnInit {
   private addGenre(result) {
     if (result.value){
       this.service.add(result.value).subscribe((res:any)=>{
-        console.log(res)
         if(res) return basicAlert(TYPE_ALERT.SUCCESS, res.message)
         return basicAlert(TYPE_ALERT.WARNING, res.message)
       })
@@ -66,7 +65,6 @@ export class GenresComponent implements OnInit {
   private updateGenre(id:string, result) {
     if (result.value){
       this.service.update(result.value, id).subscribe((res:any)=>{
-        console.log(res)
         if(res) return basicAlert(TYPE_ALERT.SUCCESS, res.message)
         return basicAlert(TYPE_ALERT.WARNING, res.message)
       })
