@@ -6,15 +6,14 @@ export function basicAlert(icon:TYPE_ALERT = TYPE_ALERT.SUCCESS, title: string){
   Swal.fire({
     title,
     icon,
-    position: 'top-end',
-    toast: true,
+    position: 'top',
     showConfirmButton: false,
-    width: 400,
-    timer: 2500,
+    toast: true,
+    timer: 5000,
     timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
     }
   })
 }

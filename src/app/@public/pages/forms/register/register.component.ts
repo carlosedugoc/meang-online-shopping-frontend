@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { ApiService } from '../../../../@graphql/services/api.service';
 import { IRegisterForm, IResultRegister } from '../../../../@core/interfaces/register.interface';
-import { REGISTER_USER } from '../../../../@graphql/operations/mutation/user';
 import { UsersService } from '@core/services/users.service';
 import { basicAlert } from '../../../../@shared/alert/toasts';
 import { TYPE_ALERT } from '@shared/alert/values.config';
@@ -11,6 +9,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
 import { setUser } from '../login/state/login.actions';
+import { EMAIL_PATTERN } from '@core/constants/regex';
 
 @Component({
   selector: 'app-register',
@@ -37,7 +36,8 @@ export class RegisterComponent implements OnInit {
   }
 
   private setRegisterForm (){
-    const emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+    // const emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+    const emailPattern = EMAIL_PATTERN
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],

@@ -1,3 +1,11 @@
-<app-table-pagination [query]="query" [context]="context" [itemsPage]="itemsPage" [resultData]="resultData" [tableColumns]="columns" >
+<app-table-pagination
+    [query]="query"
+    [context]="context"
+    [itemsPage]="itemsPage"
+    [resultData]="resultData"
+    [tableColumns]="columns"
+    (manageItem)="takeAction($event)"
+
+>
 
 </app-table-pagination>

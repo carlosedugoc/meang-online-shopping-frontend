@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DocumentNode } from 'graphql';
 import { TablePaginationService } from './table-pagination.service';
 import { USERS_LIST } from '../../@graphql/operations/query/user';
@@ -19,6 +19,7 @@ export class TablePaginationComponent implements OnInit {
   @Input() include = true;
   @Input() resultData: IResultData;
   @Input() tableColumns: Array<ITableColumns> = undefined;
+  @Output() manageItem = new EventEmitter<any>()
   infoPage: IInfoPage;
   data$: Observable<any>;
   constructor(private service: TablePaginationService) { }
@@ -37,7 +38,6 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData(){
-    debugger;
     const variables = {
       page: this.infoPage.page,
       itemsPage:this.infoPage.itemsPage,
@@ -54,8 +54,10 @@ export class TablePaginationComponent implements OnInit {
     )
   }
 
-  changePage() {
-    this.loadData()
+  changePage() { this.loadData() }
+
+  manageAction(action: string, data: any) {
+    this.manageItem.emit([action, data])
   }
 
 }

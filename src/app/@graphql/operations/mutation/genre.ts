@@ -1,0 +1,46 @@
+import gql from 'graphql-tag';
+import { GENRE_FRAGMENT } from '../fragment/genre';
+
+export const ADD_GENRE = gql`
+  mutation insertarGenero($genre: String!) {
+    addGenre(genre: $genre) {
+      status
+      message
+      genre {
+        ...GenreObject
+      }
+    }
+  }
+  ${GENRE_FRAGMENT}
+`
+
+export const MODIFY_GENRE = gql`
+  mutation modififarGenero($id: ID!, $genre: String!) {
+    updateGenre(id:$id, genre: $genre) {
+      status
+      message
+      genre {
+        ...GenreObject
+      }
+    }
+  }
+  ${GENRE_FRAGMENT}
+`
+
+export const DELETE_GENRE = gql`
+  mutation borrarGenero($id: ID!) {
+    deleteGenre(id:$id) {
+      status
+      message
+    }
+  }
+`
+
+export const BLOCK_GENRE = gql`
+  mutation bloquearGenero($id: ID!) {
+    blockGenre(id:$id) {
+      status
+      message
+    }
+  }
+`

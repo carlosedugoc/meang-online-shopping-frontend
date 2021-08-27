@@ -18,9 +18,7 @@ export class ApiService {
       variables,
       context,
       fetchPolicy: 'network-only'
-    }).valueChanges.pipe(map(({data, error, loading}) => {
-      return data
-    }))
+    }).valueChanges.pipe(map(({data}) => data))
   }
 
   protected set(mutation: DocumentNode, variables: object = {}, context: object = {}){
@@ -28,10 +26,7 @@ export class ApiService {
       mutation,
       variables,
       context
-    }).pipe(map((result) => {
-      debugger;
-      return result.data
-    }))
+    }).pipe(map((result) => result.data))
   }
 
 }

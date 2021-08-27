@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { GENRE_FRAGMENT } from '../fragment/genre'
+import { GENRE_FRAGMENT } from '../fragment/genre';
 import { RESULT_INFO_FRAGMENT } from '../fragment/result-info'
 
 export const GENRES_LIST = gql`
@@ -16,5 +16,19 @@ export const GENRES_LIST = gql`
     }
   }
   ${RESULT_INFO_FRAGMENT}
+  ${GENRE_FRAGMENT}
+`
+
+
+export const GENRE_INFO = gql`
+  query genre($id:Int){
+    genres(id:$id) {
+      status
+      message
+      genre {
+        ...GenreObject
+      }
+    }
+  }
   ${GENRE_FRAGMENT}
 `

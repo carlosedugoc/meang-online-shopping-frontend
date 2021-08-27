@@ -1,13 +1,20 @@
+<button type="button" (click)="manageAction('add', '')" class="btn btn-success float-end me-3 mb-2"> <i class="fa fa-plus-circle"></i> &nbsp; Añadir </button>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col" *ngFor="let column of tableColumns">{{column.label}}</th>
+        <th scope="col">Gestionar Información</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of data$ | async">
         <td *ngFor="let col of tableColumns" >{{ data[col.property] }}</td>
+        <td>
+          <button (click)="manageAction('edit', data)" type="button" class="btn btn-secondary me-2"> <i class="fas fa-edit    "></i> </button>
+          <button (click)="manageAction('info', data)" type="button" class="btn btn-info me-2"><i class="fas fa-info" aria-hidden="true"></i></button>
+          <button (click)="manageAction('block', data)" type="button" class="btn btn-danger"><i class="fas fa-lock" aria-hidden="true"></i></button>
+        </td>
       </tr>
     </tbody>
   </table>
