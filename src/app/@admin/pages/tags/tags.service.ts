@@ -2,7 +2,7 @@ import { ADD_TAG, MODIFY_TAG, BLOCK_TAG } from '@graphql/operations/mutation/tag
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { ApiService } from '@graphql/services/api.service';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

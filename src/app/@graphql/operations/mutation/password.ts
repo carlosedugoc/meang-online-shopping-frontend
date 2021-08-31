@@ -12,7 +12,7 @@ export const RESET_PASSWORD = gql`
 
 export const CHANGE_PASSWORD = gql`
   mutation CAMBIO($id: ID!, $password: String!) {
-    changePassword(id: $id, password: $password!){
+    changePassword(id: $id, password: $password){
       status
       message
     }
