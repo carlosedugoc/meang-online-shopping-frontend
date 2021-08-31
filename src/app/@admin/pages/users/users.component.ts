@@ -79,7 +79,7 @@ export class UsersComponent implements OnInit {
           '<i class="fas fa-lock-open"></i> Desloquear'
         )
         if(infoResult) this.updateForm(html, user)
-        else if (infoResult === false) this.unblockForm(user, false)
+        else if (infoResult === false) this.unblockForm(user, !user.active)
         break;
       case 'block':return this.unblockForm(user, false)
       case 'unblock':return this.unblockForm(user, true)
@@ -138,7 +138,7 @@ export class UsersComponent implements OnInit {
       'Si, desbloquear'
     ):
     await optionsWithDetails(
-      '¿DesBloquear?',
+      '¿Bloquear?',
       'Si bloqueas el usuario seleccionado, no se mostrará en la lista', 500,
       'No, no bloquear',
       'Si, bloquear'
