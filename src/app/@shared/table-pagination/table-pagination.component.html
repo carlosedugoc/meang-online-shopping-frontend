@@ -1,4 +1,18 @@
 <button type="button" (click)="manageAction('add', '')" class="btn btn-success float-end me-3 mb-2"> <i class="fa fa-plus-circle"></i> &nbsp; Añadir </button>
+
+<select class="custom-select float-end me-3 mb-2" style="width: auto" [(ngModel)]="filterActiveValues" (ngModelChange)="loadData()">
+  <option [ngValue]="'ALL'">Todos</option>
+  <option [ngValue]="'ACTIVE'">Activos</option>
+  <option [ngValue]="'INACTIVE'">Inactivos</option>
+</select>
+
+<!-- <select class="form-select w-25 float-end me-3 mb-2" [(ngModel)]="filterActiveValues" (ngModelChange)="loadData()" aria-label="Default select example">
+  <option [ngValue]="'ALL'">Todos</option>
+  <option [ngValue]="'ACTIVE'">Activos</option>
+  <option [ngValue]="'INACTIVE'">Inactivos</option>
+</select> -->
+
+
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -9,11 +23,24 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of data$ | async">
-        <td *ngFor="let col of tableColumns" >{{ data[col.property] }}</td>
+        <td *ngFor="let col of tableColumns" >
+          <span *ngIf="col.property != 'active'; else activeValue" >
+            {{ data[col.property] }}
+          </span>
+          <ng-template #activeValue>
+            <span *ngIf="data[col.property] == true" > <i class="fas fa-check-circle" aria-hidden="true"></i> </span>
+            <span *ngIf="data[col.property] == false" > <i class="fa fa-times-circle" aria-hidden="true"></i> </span>
+          </ng-template>
+
+
+        </td>
         <td>
           <button (click)="manageAction('edit', data)" type="button" class="btn btn-secondary me-2"> <i class="fas fa-edit    "></i> </button>
           <button (click)="manageAction('info', data)" type="button" class="btn btn-info me-2"><i class="fas fa-info" aria-hidden="true"></i></button>
-          <button (click)="manageAction('block', data)" type="button" class="btn btn-danger"><i class="fas fa-lock" aria-hidden="true"></i></button>
+          <button *ngIf="data['active'] != false; else unblockBtn" (click)="manageAction('block', data)" type="button" class="btn btn-danger"><i class="fas fa-lock" aria-hidden="true"></i></button>
+          <ng-template #unblockBtn>
+            <button (click)="manageAction('unblock', data)" type="button" class="btn btn-success"><i class="fas fa-lock-open" aria-hidden="true"></i></button>
+          </ng-template>
         </td>
       </tr>
     </tbody>

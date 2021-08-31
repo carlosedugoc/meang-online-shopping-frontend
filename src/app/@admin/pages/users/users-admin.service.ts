@@ -3,7 +3,7 @@ import { UsersService } from '@core/services/users.service';
 import { IRegisterForm } from '@core/interfaces/register.interface';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
-import { UPDATE_USER } from '@graphql/operations/mutation/user';
+import { ACTIVE_EMAIL_USER, UPDATE_USER } from '@graphql/operations/mutation/user';
 import { map } from 'rxjs/operators';
 import { BLOCK_GENRE } from '../../../@graphql/operations/mutation/genre';
 import { BLOCK_USER } from '../../../@graphql/operations/mutation/user';
@@ -29,9 +29,15 @@ export class UsersAdminService extends ApiService {
     )
   }
 
-  public block(id: string) {
-    return this.set(BLOCK_USER,{id}, {}).pipe(map((result:any)=>{
+  public unblock(id: string, unblock: boolean =false, admin: boolean =false) {
+    return this.set(BLOCK_USER,{id, unblock, admin}, {}).pipe(map((result:any)=>{
       return result.blockUser
+    }))
+  }
+
+  public sendEmailActive(id: string, email: string) {
+    return this.set(ACTIVE_EMAIL_USER,{id, email}, {}).pipe(map((result:any)=>{
+      return result.activeUserEmail
     }))
   }
 }
