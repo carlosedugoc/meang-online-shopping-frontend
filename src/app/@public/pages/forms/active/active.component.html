@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+
+    <div class="col-lg-6">
+      <form (ngSubmit)="add()" [formGroup]="activeForm" >
+        <h1>Activar Usuario</h1>
+        <p>Introduzca el password y verificalo antes de activar el usuario. Selecciona tu fecha de nacimiento</p>
+        <label for="email"> <b>Fecha de Nacimiento</b> </label>
+        <app-date-picker-legal-age (newDate)="dataAssign($event)"></app-date-picker-legal-age>
+        <label for="psw"><b>Contraseña</b></label>
+          <input
+            type="password"
+            placeholder="Introduzca la contraseña"
+            name="psw"
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{'is-valid':!password.errors, 'is-invalid':password.errors}"
+          />
+          <div class="alert alert-danger" *ngIf="isNotValid('password')">
+            <div *ngIf="password.errors?.required">
+              La contraseña es obligatoria
+            </div>
+            <div *ngIf="password.errors?.minlength || password.errors?.maxlength">
+              Debe tener entre 6 y 20 caracteres | actualmente llevas {{password.value.length}}
+            </div>
+          </div>
+
+          <label for="psw2"><b>Repetir Contraseña</b></label>
+          <input
+            type="password"
+            placeholder="Repita la contraseña"
+            name="psw2"
+            formControlName="confirmPassword"
+            class="form-control"
+            [ngClass]="{'is-valid':!confirmPassword.errors && !activeForm.hasError('match_password'), 'is-invalid':confirmPassword.errors || activeForm.hasError('match_password')}"
+          />
+          <div class="alert alert-danger" *ngIf="isNotValid('confirmPassword') || activeForm.hasError('match_password')">
+            <div *ngIf="confirmPassword.errors?.required">
+              La contraseña es obligatoria
+            </div>
+            <div *ngIf="confirmPassword.errors?.minlength || confirmPassword.errors?.maxlength">
+              Debe tener entre 6 y 20 caracteres | actualmente llevas {{password.value.length}}
+            </div>
+            <div *ngIf="activeForm.hasError('match_password')">
+              Las contraseñas no coinciden
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg">
+              <button type="submit" (click)="add()" [disabled]="!activeForm.valid"  class="signup-btn">Activar</button>
+            </div>
+          </div>
+      </form>
+    </div>
+
+    <div class="col-lg"></div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="reset()" [formGroup]="forgotForm" >
+        <h2>Añade tu correo electrónico</h2>
+        <p>
+          Te enviaremos un enlace a tu correo electrónico para resetear tu
+          contraseña y cambiarlo
+        </p>
+        <hr />
+        <div class="row">
+          <div class="col-lg">
+            <label for="email"><b>Correo electrónico</b></label>
+            <input
+              type="email"
+              placeholder="Introduzca el correo electrónico"
+              name="email"
+              formControlName="email"
+              class="form-control"
+              [ngClass]="{'is-valid':!email.errors, 'is-invalid':email.errors}"
+            />
+            <div class="alert alert-danger" *ngIf="isNotValid('email')">
+              <div *ngIf="email.errors?.required" >
+                El email es obligatorio
+              </div>
+              <div *ngIf="email.errors?.pattern">
+                No cumple con el formato de correo electrónico
+              </div>
+            </div>
+            <input
+              type="submit"
+              class="signup-btn"
+              value="Resetear Password"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg">
+            <button type="submit" [disabled]="!forgotForm.valid"  class="signup-btn">Resetear Contraseña</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg"></div>
+  </div>
+</div>

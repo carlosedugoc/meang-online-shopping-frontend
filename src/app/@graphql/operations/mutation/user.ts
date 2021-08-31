@@ -35,3 +35,12 @@ export const BLOCK_USER = gql`
     }
   }
 `
+
+export const ACTIVE_USER = gql`
+  mutation activeUser($id: ID!, $birthday: String!, $password: String!) {
+    activeUserAction(id: $i,  birthday:$birthday, password:$password) {
+      status
+      message
+    }
+  }
+`
