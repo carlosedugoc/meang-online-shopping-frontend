@@ -55,7 +55,6 @@ export class ActiveComponent implements OnInit {
 
   add (){
     this.userService.active(this.token, this.birthday.value, this.password.value).subscribe(result =>{
-      console.log(result)
       if(result.status){
         basicAlert(TYPE_ALERT.SUCCESS, result.message)
         this.router.navigate(['login'])
