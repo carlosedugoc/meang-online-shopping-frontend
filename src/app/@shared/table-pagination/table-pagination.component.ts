@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ITableColumns } from '../../@core/interfaces/table-columns.interface';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
+import { loadData, closeAlert } from '@shared/alert/alert';
 
 @Component({
   selector: 'app-table-pagination',
@@ -24,6 +25,7 @@ export class TablePaginationComponent implements OnInit {
   @Output() manageItem = new EventEmitter<any>()
   infoPage: IInfoPage;
   data$: Observable<any>;
+  loading: boolean
   constructor(private service: TablePaginationService) { }
 
   ngOnInit(): void {
@@ -39,6 +41,8 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData(){
+    this.loading = true
+    loadData('Cargando los datos', 'Espera un momento')
     const variables = {
       page: this.infoPage.page,
       itemsPage:this.infoPage.itemsPage,
@@ -50,6 +54,8 @@ export class TablePaginationComponent implements OnInit {
         const data = result[this.resultData.definitionKey]
         this.infoPage.pages = data.info.pages;
         this.infoPage.total = data.info.total;
+        closeAlert()
+        this.loading = false
         return data[this.resultData.listKey]
       })
     )

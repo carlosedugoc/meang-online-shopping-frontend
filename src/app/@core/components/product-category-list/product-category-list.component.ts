@@ -7,8 +7,11 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
   styleUrls: ['./product-category-list.component.scss']
 })
 export class ProductCategoryListComponent implements OnInit {
+
   @Input() title = 'Titulo de la categoría'
   @Input() productsList: Array<IProduct> = []
+  @Input() description: string = ''
+
   constructor() { }
 
   ngOnInit(): void {

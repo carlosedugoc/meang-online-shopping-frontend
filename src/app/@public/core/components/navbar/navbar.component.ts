@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@main/app.reducer';
 import { unSetUser } from '../../../pages/forms/login/state/login.actions';
+import shopMenuItems from '@data/menus/shop.json'
+import { IMenuItem } from '../../../../@core/interfaces/menu-item';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +11,7 @@ import { unSetUser } from '../../../pages/forms/login/state/login.actions';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  menuItems: Array<IMenuItem> = shopMenuItems
   public logedIn = false;
   public role: string;
   public name: string

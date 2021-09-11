@@ -5,8 +5,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
+      <li class="nav-item active" *ngFor="let item of menuItems" >
+        <a class="nav-link" [routerLink]="item.url" routerLinkActive="" >{{item.label}}</a>
+      </li>
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/']" routerLinkActive="" >Home</a>
+        <a class="nav-link" [routerLink]="['/games/platforms/sony']" routerLinkActive="" >Games</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/contact']" routerLinkActive="" >Contact</a>

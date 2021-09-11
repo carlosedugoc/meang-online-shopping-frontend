@@ -4,9 +4,10 @@
       <a [routerLink]="[ '/home' ]" routerLinkActive="active">Gamezonia</a>
     </div>
     <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" [routerLink] = "['/admin']" ><i class="fas fa-columns"></i> Dashboard</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" [routerLink] = "['/admin/users']" ><i class="fas fa-id-card"></i> Users</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" [routerLink] = "['/admin/tags']"><i class="fas fa-tags"></i> Tags</a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" [routerLink] = "['/admin/genres']" ><i class="fas fa-atlas"></i> Genres</a>
+        <a *ngFor="let item of menuItems"
+           class="list-group-item list-group-item-action list-group-item-light p-3"
+           [routerLink] = "item.url" ><i [class]="item.icon"></i>
+           {{item.label}}
+        </a>
     </div>
 </div>
