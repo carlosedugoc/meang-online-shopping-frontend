@@ -1,0 +1,52 @@
+.container {
+  margin-top: 25px;
+}
+
+.mini {
+  margin-bottom: 10px;
+}
+
+.price {
+  font: 22px;
+  font-weight: 800;
+  color: #cc1c39;
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 12px;
+  span {
+    font: 18px;
+    font-weight: 400;
+    color: #999;
+    text-align: left;
+    margin-left: 5px;
+    margin-bottom: 12px;
+    text-decoration: line-through;
+  }
+  span.discount-percentage {
+    text-decoration: none;
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+
+}
+
+// RESPONSIVE
+@media(max-width: 600px) {
+  #screens-section {
+    display: none;
+  }
+}
+
+.main-img, .more-games {
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.more-games {
+  max-height: 105px;
+}

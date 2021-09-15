@@ -13,6 +13,7 @@ export const SHOP_LAST_UNIT_OFFERS = gql`
     $lastUnits: Int
     $showInfo: Boolean = false
     $showPlatform: Boolean = false
+    $relationScreens: Boolean = false
   ) {
   shopProductsOffersLast(
     page: $page
@@ -45,6 +46,7 @@ export const SHOP_PRODUCT_BY_PLATFORM = gql`
     $random: Boolean
     $showInfo: Boolean = false
     $showPlatform: Boolean = false
+    $relationScreens: Boolean = false
   ) {
     shopProductsPlatform(
       page: $page
@@ -66,3 +68,32 @@ export const SHOP_PRODUCT_BY_PLATFORM = gql`
   ${SHOP_PRODUCT_FRAGMENT}
   ${RESULT_INFO_FRAGMENT}
 `
+
+export const SHOP_PRODUCT_DETAIL = gql`
+  query productDetails($id: Int!, $showPlatform: Boolean = true, $relationScreens: Boolean = true ) {
+    shopProductDetails(id: $id){
+      shopProduct {
+        ...ShopProductObject
+      }
+    }
+  }
+  ${SHOP_PRODUCT_FRAGMENT}
+`
+
+export const SHOP_PRODUCT_RANDOM_ITEMS = gql`
+  query itemsAleatorios(
+    $showPlatform:Boolean = true
+    $relationScreens:Boolean = false
+  ) {
+    randomItems: shopProductsOffersLast(itemsPage: 6, random: true) {
+      shopProducts {
+        ...ShopProductObject
+      }
+    }
+  }
+  ${SHOP_PRODUCT_FRAGMENT}
+`
+
+
+
+

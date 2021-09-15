@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 
 @Component({
@@ -12,7 +13,7 @@ export class ProductCategoryListComponent implements OnInit {
   @Input() productsList: Array<IProduct> = []
   @Input() description: string = ''
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +23,7 @@ export class ProductCategoryListComponent implements OnInit {
   }
 
   showProductDetails($event: IProduct) {
-
+    this.router.navigate(['/games/details', +$event.id ])
   }
 
 }

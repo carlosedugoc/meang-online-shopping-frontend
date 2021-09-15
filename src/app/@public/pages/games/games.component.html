@@ -4,6 +4,7 @@
     [productsList]="productsList"
     [description]="gamesPageInfo.description"
   >
+  {{productsList | json}}
   </app-product-category-list>
   <div class="d-flex justify-content-between p-2" >
     <ng-container  *ngIf="infoPage.pages > 1">

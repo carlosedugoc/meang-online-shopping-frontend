@@ -59,7 +59,7 @@ export class GamesComponent implements OnInit {
     this.productsList = data.result
     this.infoPage = data.info;
     closeAlert()
-    this.loading = true
+    this.loading = false
   }
 
 

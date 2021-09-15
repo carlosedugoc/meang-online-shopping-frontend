@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
-import { SHOP_LAST_UNIT_OFFERS } from '@graphql/operations/query/shop-product';
+import { SHOP_LAST_UNIT_OFFERS, SHOP_PRODUCT_DETAIL, SHOP_PRODUCT_RANDOM_ITEMS } from '@graphql/operations/query/shop-product';
 import { map } from 'rxjs/operators';
 import { SHOP_PRODUCT_BY_PLATFORM } from '../../@graphql/operations/query/shop-product';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
-import { HOME_PAGE } from '../../@graphql/operations/query/home-page';
+import { HOME_PAGE } from '@graphql/operations/query/home-page';
+import { DETAILS_PAGE } from '@graphql/operations/query/details-page';
 
 @Injectable({
   providedIn: 'root'
@@ -71,19 +72,46 @@ export class ProductsService extends ApiService {
      )
    }
 
+   getItem(id: number) {
+     return this.get(DETAILS_PAGE, {id}, {}, false).pipe(
+      map((result:any) => {
+        const {details, randomItems} = result;
+        return {
+          product: this.setInObject(details.shopProduct, true),
+          screens: details.shopProduct.product.screenshot,
+          relational: details.shopProduct.relationalProducts,
+          random: this.manageInfo(randomItems.shopProducts, true)
+        }
+      })
+    )
+   }
+
+   getRandomItems() {
+     return this.get(SHOP_PRODUCT_RANDOM_ITEMS).pipe(
+      map((result:any) => {
+        const data = result.randomItems.shopProducts
+        return this.manageInfo(data, true)
+      })
+    )
+   }
+
+   private setInObject(shopObject, showDescription) {
+    return {
+      id: shopObject.id,
+      img: shopObject.product.img,
+      name: shopObject.product.name,
+      rating: shopObject.product.rating,
+      description: (shopObject.platform && showDescription) ? shopObject.platform.name : '',
+      qty: 1,
+      price: shopObject.price,
+      stock: shopObject.stock
+    }
+   }
+
    private manageInfo(productsList, showDescription = true) {
     const resultList: Array<IProduct> = []
     productsList.map((shopObject) => {
-      resultList.push({
-        id: shopObject.id,
-        img: shopObject.product.img,
-        name: shopObject.product.name,
-        rating: shopObject.product.rating,
-        description: (shopObject.platform && showDescription) ? shopObject.platform.name : '',
-        qty: 1,
-        price: shopObject.price,
-        stock: shopObject.stock
-      })
+      resultList.push(this.setInObject(shopObject, showDescription))
     })
     return resultList
    }
