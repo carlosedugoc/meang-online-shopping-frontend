@@ -1,6 +1,6 @@
 <div class="container-fluid" *ngIf="!loading" >
   <shop-carousel-items [items]="items"></shop-carousel-items>
-  <app-product-category-list [title]="'Juegos de PC'" [productsList]="listOne" ></app-product-category-list>
-  <app-product-category-list [title]="'Juegos mas económicos'" [productsList]="listTwo" ></app-product-category-list>
-  <app-product-category-list [title]="'JJuegos mas recientes'" [productsList]="listThree" ></app-product-category-list>
+  <app-product-category-list [showDesc]="false" [title]="'Juegos de PS4'" [productsList]="listOne" ></app-product-category-list>
+  <app-product-category-list [showDesc]="true" [title]="'Juegos mas económicos'" [productsList]="listTwo" ></app-product-category-list>
+  <app-product-category-list [showDesc]="false" [title]="'JJuegos mas recientes'" [productsList]="listThree" ></app-product-category-list>
 </div>
