@@ -4,6 +4,8 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
 import { loadData, closeAlert } from '@shared/alert/alert';
 import { CURRENCY_SELECT } from '@core/constants/config';
+import { CartService } from '@shop/core/services/cart.service';
+import { ICart } from '../../../core/services/shopping-cart.interface';
 
 @Component({
   selector: 'app-details',
@@ -20,7 +22,7 @@ export class DetailsComponent implements OnInit {
   randomItems: Array<IProduct> = []
   loading: boolean;
 
-  constructor(private productService: ProductsService, private activatedRoute: ActivatedRoute ) { }
+  constructor(private productService: ProductsService, private activatedRoute: ActivatedRoute, private cartService: CartService ) { }
 
   ngOnInit(): void {
     debugger;
@@ -29,11 +31,25 @@ export class DetailsComponent implements OnInit {
         this.loading = true
         this.loadDataValue(+params.id)
     })
+
+    this.cartService.itemsVar$.subscribe((data:ICart)=>{
+       if(data.subtotal === 0){
+         this.product.qty = 1
+         return
+       }
+       this.product.qty = this.findProduct(+this.product.id).qty;
+    })
+  }
+
+  findProduct(id:number) {
+    return this.cartService.cart.products.find(item => +item.id === id );
   }
 
   loadDataValue(id: number) {
     this.productService.getItem(id).subscribe((res) => {
         this.product = res.product
+        const saveProductInCart = this.findProduct(+this.product.id);
+        this.product.qty = (saveProductInCart) ? saveProductInCart.qty : this.product.qty
         this.selectImage = this.product.img
         this.screens = res.screens
         this.relationalProducts = res.relational
@@ -44,7 +60,7 @@ export class DetailsComponent implements OnInit {
   }
 
   changeValue(qty: number){
-
+    this.product.qty = qty
   }
 
   selectImgMain(i) {
@@ -54,5 +70,9 @@ export class DetailsComponent implements OnInit {
 
   selectOtherPlatform($event) {
     this.loadDataValue(+$event.target.value )
+  }
+
+  addToCart() {
+    this.cartService.manageProduct(this.product)
   }
 }

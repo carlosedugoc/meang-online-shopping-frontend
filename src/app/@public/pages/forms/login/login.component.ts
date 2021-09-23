@@ -25,6 +25,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.setLoginForm()
     this.store.select('session').subscribe(res => {
+      const route = localStorage.getItem('route_after_login')
+      if(route) {
+        this.router.navigate([route])
+        localStorage.removeItem('route_after_login')
+        return
+      }
       if (res.logedIn) this.router.navigate(['/home'])
     })
   }
