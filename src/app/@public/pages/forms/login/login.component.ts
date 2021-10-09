@@ -24,16 +24,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.setLoginForm()
-    this.store.select('session').subscribe(res => {
-      const route = localStorage.getItem('route_after_login')
-      if(route) {
-        this.router.navigate([route])
-        localStorage.removeItem('route_after_login')
-        return
-      }
-      if (res.logedIn) this.router.navigate(['/home'])
-    })
+    // this.store.select('session').subscribe(res => {
+    //   const route = localStorage.getItem('route_after_login')
+    //   if(route) {
+    //     this.router.navigate([route])
+    //     localStorage.removeItem('route_after_login')
+    //     return
+    //   }
+    //   if (res.logedIn) this.router.navigate(['/home'])
+    // })
   }
+
 
   private setLoginForm (){
     const emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
@@ -44,16 +45,36 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    // this.store.dispatch(logIn( {email: this.email.value, password: this.password.value}))
-    this.auth.login(this.email.value, this.password.value).subscribe((res:IResultLogin) =>{
-      if(res.status && res.token){
-        basicAlert(TYPE_ALERT.SUCCESS, res.message)
-        this.store.dispatch(setToken( this.auth.setSession(res.token)))
-        return
+    // // this.store.dispatch(logIn( {email: this.email.value, password: this.password.value}))
+    // this.auth.login(this.email.value, this.password.value).subscribe((res:IResultLogin) =>{
+    //   if(res.status && res.token){
+    //     basicAlert(TYPE_ALERT.SUCCESS, res.message)
+    //     this.store.dispatch(setToken( this.auth.setSession(res.token)))
+    //     return
+    //   }
+    //   if(res.status) return basicAlert(TYPE_ALERT.WARNING, res.message)
+    //   return  basicAlert(TYPE_ALERT.ERROR, res.message)
+    // })
+    this.auth.login(this.email.value, this.password.value).subscribe(
+      (result: IResultLogin) => {
+        if (result.status) {
+          if (result.token !== null) {
+            this.auth.setSession(result.token);
+            this.auth.updateSession(result);
+            if (localStorage.getItem('route_after_login')) {
+              const route = [localStorage.getItem('route_after_login')];
+              this.router.navigate(route);
+              return;
+            }
+            this.router.navigate(['/home']);
+            return;
+          }
+          basicAlert(TYPE_ALERT.WARNING, result.message);
+          return;
+        }
+        basicAlert(TYPE_ALERT.INFO, result.message);
       }
-      if(res.status) return basicAlert(TYPE_ALERT.WARNING, res.message)
-      return  basicAlert(TYPE_ALERT.ERROR, res.message)
-    })
+    );
   }
 
   public isNotValid(control: string): boolean{

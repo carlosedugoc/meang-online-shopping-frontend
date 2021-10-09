@@ -13,7 +13,7 @@
         <small class="text-muted">{{product.description}} - {{product.qty}} uds.</small>
       </div>
       <div class="col-lg">
-        <span class="text-muted float-end">{{currencySelect}} {{product.price}}</span>
+        <span class="text-muted float-end">{{currencySelect}} {{product.price * product.qty}}</span>
       </div>
     </div>
   </div>

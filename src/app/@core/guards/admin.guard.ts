@@ -18,8 +18,6 @@ export class AdminGuard implements CanActivateChild {
       this.logedIn = logedIn
     })
 
-
-
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,

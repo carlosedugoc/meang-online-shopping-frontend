@@ -22,6 +22,7 @@
     "@angular/router": "~11.2.1",
     "@apollo/client": "^3.0.0",
     "@mugan86/ng-shop-ui": "^0.2.3",
+    "@mugan86/stripe-payment-form": "^0.2.5",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-beta.2",
     "@ngrx/effects": "^12.4.0",
     "@ngrx/store": "^12.4.0",

@@ -5,5 +5,6 @@ export interface IUser {
   email?: string;
   registerDate?: string;
   birthday?: string;
-  role?: string
+  role?: string;
+  stripeCustomer?: string;
 }
