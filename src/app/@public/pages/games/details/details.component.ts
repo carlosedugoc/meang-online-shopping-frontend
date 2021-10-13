@@ -30,6 +30,7 @@ export class DetailsComponent implements OnInit {
         loadData('Cargando Datos', 'Espera mientras carga la información')
         this.loading = true
         this.loadDataValue(+params.id)
+        this.updateListener(+params.id)
     })
 
     this.cartService.itemsVar$.subscribe((data:ICart)=>{
@@ -69,10 +70,21 @@ export class DetailsComponent implements OnInit {
 
 
   selectOtherPlatform($event) {
+    const id = +$event.target.value
     this.loadDataValue(+$event.target.value )
+    this.updateListener(id)
+    window.history.replaceState({},'', `/#/games/details/${id}`)
   }
 
   addToCart() {
     this.cartService.manageProduct(this.product)
+  }
+
+  updateListener(id: number) {
+    this.productService.stockUpdateListener(id).subscribe((res)=> {
+      this.product.stock = res.stock
+      if(this.product.qty > this.product.stock) this.product.qty = this.product.stock
+      if(this.product.stock === 0) this.product.qty = 1
+    })
   }
 }

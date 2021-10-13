@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { IPayment } from '@core/interfaces/stripe/payment.interface';
 import { map } from 'rxjs/operators';
 import { CHARGES_CUSTOMERS_LIST } from '@graphql/operations/query/stripe/charge';
+import { IStock } from '../../../../@core/interfaces/stock.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class ChargeService extends ApiService{
     super(apollo)
   }
 
-  pay(payment:IPayment) {
+  pay(payment:IPayment, stockChange:Array<IStock>) {
     return this.set(
       CREATE_PAYMENT_ORDER,
-      {payment}
+      {payment, stockChange}
     ).pipe(map((result:any) => {
       return result.chargeOrder
     }))

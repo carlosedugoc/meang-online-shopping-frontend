@@ -18,6 +18,7 @@ export class ShopGuard implements CanActivate{
     state: RouterStateSnapshot
   ): boolean {
     // Primero comprobar que existe sesión
+    debugger;
     if (this.auth.getSession() !== null) {
       console.log('Estamos logueados');
       const dataDecode: any = this.decodeToken();

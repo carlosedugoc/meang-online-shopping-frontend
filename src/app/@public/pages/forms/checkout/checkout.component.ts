@@ -17,6 +17,9 @@ import { ICart } from '../../../core/services/shopping-cart.interface';
 import { ICharge } from '@core/interfaces/stripe/charge.interface';
 import { IMail } from '@core/interfaces/mail.interface';
 import { MailService } from '@core/services/mail.service';
+import { IStock } from '../../../../@core/interfaces/stock.interface';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -36,12 +39,22 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private customerService: CustomerService,
     private chargeService: ChargeService,
-    private mailService: MailService)
+    private mailService: MailService,
+    private auth: AuthService)
     {
-      this.store.select('session').subscribe(res => {
-        if (!res.logedIn) return this.router.navigate(['/login'])
-        this.meData = {status: true, message: 'Ok', user: res.user }
-      })
+      // this.store.select('session').subscribe(res => {
+      //   if (!res.logedIn) return this.router.navigate(['/login'])
+      //   this.meData = {status: true, message: 'Ok', user: res.user }
+      // })
+
+      this.auth.accessVar$.subscribe((data: IMeData) => {
+        if (!data.status) {
+          // Ir a login
+          this.router.navigate(['/login']);
+          return;
+        }
+        this.meData = data;
+      });
       this.cartService.itemsVar$.pipe(take(1)).subscribe((cart:ICart)=>{
         if(this.cartService.cart.total === 0 && this.available === false) {
           this.available = false
@@ -61,9 +74,16 @@ export class CheckoutComponent implements OnInit {
             customer: this.meData.user.stripeCustomer,
             currency: CURRENCY_CODE
           }
+          const stockManage: Array<IStock> = []
+          this.cartService.cart.products.map((item:IProduct) => {
+            stockManage.push({
+              id: +item.id,
+              increment: item.qty * (-1)
+            })
+          })
           this.block = true
           loadData('Realizando el pago', 'Espere mientras se procesa la información de pago')
-          this.chargeService.pay(payment).pipe(take(1)).subscribe(async(result:{
+          this.chargeService.pay(payment, stockManage).pipe(take(1)).subscribe(async(result:{
             status: boolean,
             message: string,
             charge: ICharge
@@ -113,6 +133,8 @@ export class CheckoutComponent implements OnInit {
     if(this.cartService.cart.total === 0) {
       this.available = false
       this.notAvailableProducts()
+    }else {
+      this.available = true
     }
   }
 

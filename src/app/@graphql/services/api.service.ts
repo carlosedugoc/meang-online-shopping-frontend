@@ -29,4 +29,11 @@ export class ApiService {
     }).pipe(map((result) => result.data))
   }
 
+  protected subscription(subscription: DocumentNode, variables: object = {}, context: object = {}){
+    return this.apollo.subscribe({
+      query: subscription,
+      variables
+    }).pipe(map((result) => result.data))
+  }
+
 }
