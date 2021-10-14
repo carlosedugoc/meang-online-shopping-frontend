@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IMeData } from '@core/interfaces/session.interface';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../app.reducer';
 import { environment } from 'src/environments/environment';
 import { StripePaymentService } from '@mugan86/stripe-payment-form';
 import { take } from 'rxjs/operators';
@@ -34,7 +32,6 @@ export class CheckoutComponent implements OnInit {
   block = false
   constructor(
     private router: Router,
-    private store: Store<AppState>,
     private stripePayment: StripePaymentService,
     private cartService: CartService,
     private customerService: CustomerService,
@@ -42,10 +39,6 @@ export class CheckoutComponent implements OnInit {
     private mailService: MailService,
     private auth: AuthService)
     {
-      // this.store.select('session').subscribe(res => {
-      //   if (!res.logedIn) return this.router.navigate(['/login'])
-      //   this.meData = {status: true, message: 'Ok', user: res.user }
-      // })
 
       this.auth.accessVar$.subscribe((data: IMeData) => {
         if (!data.status) {

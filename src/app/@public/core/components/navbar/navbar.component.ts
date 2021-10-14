@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '@main/app.reducer';
-import { unSetUser } from '../../../pages/forms/login/state/login.actions';
 import shopMenuItems from '@data/menus/shop.json'
 import { IMenuItem } from '../../../../@core/interfaces/menu-item';
 import { CartService } from '@shop/core/services/cart.service';
@@ -29,12 +26,6 @@ export class NavbarComponent implements OnInit {
   userLabel = '';
 
   constructor(private authService: AuthService, private cartService: CartService, private router: Router) {
-    // this.store.select('session').subscribe(session => {
-    //   const {logedIn, user} = session
-    //   this.logedIn = logedIn
-    //   this.role = user?.role
-    //   this.name = `${user?.name} ${user?.lastname}`
-    // })
     this.authService.accessVar$.subscribe((result) => {
       this.session = result;
       this.access = this.session.status;

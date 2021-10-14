@@ -4,9 +4,6 @@ import { AuthService } from '@core/services/auth.service';
 import { IResultLogin } from '@core/interfaces/login.interface';
 import { basicAlert } from '@shared/alert/toasts';
 import { TYPE_ALERT } from '@shared/alert/values.config';
-import { Store } from '@ngrx/store';
-import { AppState } from '@main/app.reducer';
-import { setToken } from './state/login.actions';
 import { ISession } from '../../../../@core/interfaces/session.interface';
 import { Router } from '@angular/router';
 
@@ -20,19 +17,10 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup
   private session: ISession
-  constructor(private auth: AuthService, private fb: FormBuilder, private store: Store<AppState>, private router:Router) { }
+  constructor(private auth: AuthService, private fb: FormBuilder, private router:Router) { }
 
   ngOnInit(): void {
     this.setLoginForm()
-    // this.store.select('session').subscribe(res => {
-    //   const route = localStorage.getItem('route_after_login')
-    //   if(route) {
-    //     this.router.navigate([route])
-    //     localStorage.removeItem('route_after_login')
-    //     return
-    //   }
-    //   if (res.logedIn) this.router.navigate(['/home'])
-    // })
   }
 
 

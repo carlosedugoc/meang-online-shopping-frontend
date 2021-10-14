@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
 import jwtDecode from 'jwt-decode'
 
 @Injectable({
@@ -10,13 +8,7 @@ import jwtDecode from 'jwt-decode'
 export class AdminGuard implements CanActivateChild {
   private token: string
   private logedIn: boolean
-  constructor(private store: Store<AppState>, private router: Router){
-
-    this.store.select('session').subscribe(res=>{
-      const { token, logedIn } = res
-      this.token = token
-      this.logedIn = logedIn
-    })
+  constructor(private router: Router){
 
   }
   canActivateChild(

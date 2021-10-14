@@ -1,4 +1,5 @@
-import { IUser } from '../../../../../meang-backend/src/interfaces/user.interface';
+import { IUser } from './user.interface';
+
 export interface IRegisterForm {
   name: string;
   lastname: string;

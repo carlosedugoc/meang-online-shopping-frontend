@@ -6,9 +6,6 @@ import { UsersService } from '@core/services/users.service';
 import { basicAlert } from '../../../../@shared/alert/toasts';
 import { TYPE_ALERT } from '@shared/alert/values.config';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../app.reducer';
-import { setUser } from '../login/state/login.actions';
 import { EMAIL_PATTERN } from '@core/constants/regex';
 
 @Component({
@@ -23,7 +20,6 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private api: UsersService,
     private router: Router,
-    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +46,6 @@ export class RegisterComponent implements OnInit {
   public onSubmit(){
     this.api.register(this.registerForm.value as IRegisterForm).subscribe((res:IResultRegister) =>{
       if(!res.status) return basicAlert(TYPE_ALERT.WARNING, res.message)
-      this.store.dispatch(setUser(res.user))
       basicAlert(TYPE_ALERT.SUCCESS, res.message)
       this.router.navigate(['/login'])
     })
