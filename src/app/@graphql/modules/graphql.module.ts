@@ -26,7 +26,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const urlLink = from([errorLink, httpLink.create({uri})])
 
   const subscriptionLink = new WebSocketLink({
-    uri: environment.backend,
+    uri: environment.backendWs,
     options: {
       reconnect: true
     }
