@@ -19,7 +19,7 @@ export class ShopGuard implements CanActivate{
   ): boolean {
     // Primero comprobar que existe sesión
     debugger;
-    if (this.auth.getSession() !== null) {
+    if (this.auth.getSession().token) {
       console.log('Estamos logueados');
       const dataDecode: any = this.decodeToken();
       // COmprobar que no está caducado el token
